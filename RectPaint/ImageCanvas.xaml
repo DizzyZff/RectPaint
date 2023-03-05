@@ -5,8 +5,31 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:RectPaint"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="540" d:DesignWidth="960">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            
+            <Canvas x:Name="canvas" Width="1000" Height="1000" Background="Transparent" >
+                <Image Source="images/sample.jpg"/>
+                <Canvas.Resources>
+                    <Style x:Key="rectStyle" TargetType="Rectangle">
+                        <Setter Property="Stroke" Value="Black"/>
+                        <Setter Property="StrokeThickness" Value="1"/>
+                        <Setter Property="Fill" Value="Transparent"/>
+                    </Style>
+                </Canvas.Resources>
+            </Canvas>
+            
+        </ScrollViewer>
         
     </Grid>
 </UserControl>
