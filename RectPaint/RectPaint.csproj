@@ -50,6 +50,8 @@
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </ApplicationDefinition>
+        <Compile Include="RectangleViewModel.cs" />
+        <Compile Include="RelayCommand.cs" />
         <Page Include="ImageCanvas.xaml" />
         <Page Include="MainWindow.xaml">
             <Generator>MSBuild:Compile</Generator>

@@ -81,6 +81,8 @@
         </ToolBar>
         
         <!-- Canvas-->
-        <local:ImageCanvas Grid.Row="2"></local:ImageCanvas>
+        <Canvas Grid.Row="2" x:Name="canvas">
+            <Image x:Name="image" Stretch="None"/>
+        </Canvas>
     </Grid>
 </Window>
