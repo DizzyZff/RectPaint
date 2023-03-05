@@ -1,45 +1,23 @@
 ﻿using System.ComponentModel;
+using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace RectPaint
 {
     public class RectangleViewModel : INotifyPropertyChanged
     {
+        private double _x;
+        private double _y;
+        private double _width;
+        private double _height;
+        private Brush _fill;
+        private Brush _stroke;
+        private double _strokeThickness;
+        private bool _isSelected;
+        private bool _isDrawing;
+        private Point _startPoint;
         
-        private SolidColorBrush _fill = new SolidColorBrush(Colors.Red);
-        public SolidColorBrush Fill
-        {
-            get => _fill;
-            set
-            {
-                _fill = value;
-                OnPropertyChanged(nameof(Fill));
-            }
-        }
-        
-        private SolidColorBrush _stroke = new SolidColorBrush(Colors.Black);
-        public SolidColorBrush Stroke
-        {
-            get => _stroke;
-            set
-            {
-                _stroke = value;
-                OnPropertyChanged(nameof(Stroke));
-            }
-        }
-        
-        private double _strokeThickness = 1;
-        public double StrokeThickness
-        {
-            get => _strokeThickness;
-            set
-            {
-                _strokeThickness = value;
-                OnPropertyChanged(nameof(StrokeThickness));
-            }
-        }
-        
-        private double _x = 0;
         public double X
         {
             get => _x;
@@ -50,7 +28,6 @@ namespace RectPaint
             }
         }
         
-        private double _y = 0;
         public double Y
         {
             get => _y;
@@ -61,7 +38,6 @@ namespace RectPaint
             }
         }
         
-        private double _width = 0;
         public double Width
         {
             get => _width;
@@ -72,8 +48,8 @@ namespace RectPaint
             }
         }
         
-        private double _height = 0;
-        public double Height
+        
+public double Height
         {
             get => _height;
             set
@@ -82,24 +58,114 @@ namespace RectPaint
                 OnPropertyChanged(nameof(Height));
             }
         }
-        
-        private bool isSelected = false;
-        public bool IsSelected
+
+    public Brush Fill
         {
-            get => isSelected;
+            get => _fill;
             set
             {
-                isSelected = value;
+                _fill = value;
+                OnPropertyChanged(nameof(Fill));
+            }
+        }
+    
+        public Brush Stroke
+        {
+            get => _stroke;
+            set
+            {
+                _stroke = value;
+                OnPropertyChanged(nameof(Stroke));
+            }
+        }
+        
+        public double StrokeThickness
+        {
+            get => _strokeThickness;
+            set
+            {
+                _strokeThickness = value;
+                OnPropertyChanged(nameof(StrokeThickness));
+            }
+        }
+        
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                _isSelected = value;
                 OnPropertyChanged(nameof(IsSelected));
             }
         }
         
+        public bool IsDrawing
+        {
+            get => _isDrawing;
+            set
+            {
+                _isDrawing = value;
+                OnPropertyChanged(nameof(IsDrawing));
+            }
+        }
+        
+        private void HandleMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            IsSelected = true;
+        }
+        
+        private void HandleMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            IsSelected = false;
+        }
+        
+        private void HandleMouseMove(object sender, MouseEventArgs e)
+        {
+            if (IsDrawing)
+            {
+                var point = e.GetPosition((IInputElement) sender);
+                Width = point.X - X;
+                Height = point.Y - Y;
+            }
+        }
+        
+        private void HandleMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            IsDrawing = true;
+            var point = e.GetPosition((IInputElement) sender);
+            X = point.X;
+            Y = point.Y;
+        }
+
+        private void HandleMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            IsDrawing = false;
+        }
+        
+        public Point StartPoint
+        {
+            get => _startPoint;
+            set
+            {
+                _startPoint = value;
+                OnPropertyChanged(nameof(StartPoint));
+            }
+        }
+        
+        public RectangleViewModel()
+        {
+            Fill = Brushes.Transparent;
+            Stroke = Brushes.Black;
+            StrokeThickness = 1;
+        }
+
+
+
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
+        
+        protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        
     }
 }
