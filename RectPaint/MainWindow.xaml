@@ -5,8 +5,82 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RectPaint"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Rectangle Painter" Height="768" Width="1024">
+    
     <Grid>
+        <!-- Menu -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         
+        <Menu Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem Header="New" Command="{Binding NewCommand}"/>
+                <MenuItem Header="Open" Command="{Binding OpenCommand}"/>
+                <MenuItem Header="Save" Command="{Binding SaveCommand}"/>
+                <MenuItem Header="Save As" Command="{Binding SaveAsCommand}"/>
+                <MenuItem Header="Exit" Command="{Binding ExitCommand}"/>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Undo" Command="{Binding UndoCommand}"/>
+                <MenuItem Header="Redo" Command="{Binding RedoCommand}"/>
+                <MenuItem Header="Delete" Command="{Binding DeleteCommand}"/>
+                <MenuItem Header="Delete All" Command="{Binding DeleteAllCommand}"/>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="About" Command="{Binding AboutCommand}"/>
+            </MenuItem>
+        </Menu>
+        
+        <!-- Toolbar-->
+        <ToolBar Grid.Row="1">
+            <Button Background="Transparent" Command="{Binding DrawRectangleCommand}">
+                <StackPanel Orientation="Vertical">
+                    <Rectangle Width="50" Height="50" Stroke="Black" Fill="Beige"/>
+                    <TextBlock Text="Rectangle"/>
+                </StackPanel>
+            </Button>
+            <Separator></Separator>
+            <StackPanel Orientation="Vertical">
+                <Button Background="Transparent" Margin="1" Command="{Binding DeleteCommand}">
+                    <Button.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="Transparent" BorderBrush="Transparent" BorderThickness="1">
+                                            <ContentPresenter/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Resources>
+                    <TextBlock Text="Delete"/>
+                </Button>
+                <Button Background="Transparent" Margin="1" Command="{Binding DeleteAllCommand}">
+                    <TextBlock Text="Delete All"/>
+                    <Button.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="Transparent" BorderBrush="Transparent" BorderThickness="1">
+                                            <ContentPresenter/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                
+            </StackPanel>
+        </ToolBar>
+        
+        <!-- Canvas-->
+        <local:ImageCanvas Grid.Row="2"></local:ImageCanvas>
     </Grid>
 </Window>
