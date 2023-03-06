@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace RectPaint
 {
@@ -152,11 +153,18 @@ public double Height
             }
         }
         
+        
         public RectangleViewModel()
         {
             Fill = Brushes.Transparent;
             Stroke = Brushes.Black;
             StrokeThickness = 1;
+            X = 0;
+            Y = 0;
+            Width = 0;
+            Height = 0;
+            IsSelected = false;
+            IsDrawing = false;
         }
 
 

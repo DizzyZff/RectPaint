@@ -52,7 +52,6 @@
         </ApplicationDefinition>
         <Compile Include="RectangleViewModel.cs" />
         <Compile Include="RelayCommand.cs" />
-        <Page Include="ImageCanvas.xaml" />
         <Page Include="MainWindow.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
@@ -60,9 +59,6 @@
         <Compile Include="App.xaml.cs">
             <DependentUpon>App.xaml</DependentUpon>
             <SubType>Code</SubType>
-        </Compile>
-        <Compile Include="ImageCanvas.xaml.cs">
-          <DependentUpon>ImageCanvas.xaml</DependentUpon>
         </Compile>
         <Compile Include="MainWindow.xaml.cs">
             <DependentUpon>MainWindow.xaml</DependentUpon>

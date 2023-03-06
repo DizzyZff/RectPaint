@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RectPaint"
         mc:Ignorable="d"
-        Title="Rectangle Painter" d:DataContext="{d:DesignInstance}">
+        Title="Rectangle Painter" d:DataContext="{d:DesignInstance}"
+        Height="1080" Width="1920">
+        
     <Window.DataContext>
         <local:MainWindowViewModel/>
     </Window.DataContext>
@@ -14,7 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
         <Menu Grid.Row="0">
@@ -83,9 +85,26 @@
         </ToolBar>
         
         <!-- Canvas-->
-        <Canvas Grid.Row="2" x:Name="canvas" Background="White">
-            
-            <Image Source="{Binding ImageSource}" Stretch="None"/>
-        </Canvas>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Canvas Grid.Column="0" x:Name="canvas" Background="Beige" Width="960" Height="540" Top="0" Left="0">
+                <Canvas.Effect>
+                    <DropShadowEffect></DropShadowEffect>
+                </Canvas.Effect>
+                <Canvas.MouseLeftButtonDown>
+                    Canvas_OnMouseLeftButtonDown
+                </Canvas.MouseLeftButtonDown>
+                <Canvas.MouseLeftButtonUp>
+                    Canvas_OnMouseLeftButtonUp
+                </Canvas.MouseLeftButtonUp>
+                <Canvas.MouseMove>
+                    Canvas_OnMouseMove
+                </Canvas.MouseMove>
+                <Image Source="{Binding ImageSource}"></Image>
+            </Canvas>
+        </Grid>
     </Grid>
 </Window>
