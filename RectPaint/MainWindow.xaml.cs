@@ -47,6 +47,8 @@ namespace RectPaint
             rectangle.SetBinding(Shape.StrokeThicknessProperty,
                 new Binding(nameof(RectangleViewModel.StrokeThickness)));
             rectangle.DataContext = _currentRectangle;
+            //add to MainWindowViewModel
+            ((MainWindowViewModel) DataContext).Rectangles.Add(_currentRectangle);
             canvas.Children.Add(rectangle);
 
         }
@@ -61,9 +63,14 @@ namespace RectPaint
             if (_currentRectangle != null)
             {
                 var currentPoint = e.GetPosition(canvas);
-                _currentRectangle.Width = currentPoint.X - _startPoint.X;
-                _currentRectangle.Height = currentPoint.Y - _startPoint.Y;
+                // can drag rectangle from any corner
+                _currentRectangle.X = Math.Min(_startPoint.X, currentPoint.X);
+                _currentRectangle.Y = Math.Min(_startPoint.Y, currentPoint.Y);
+                _currentRectangle.Width = Math.Abs(_startPoint.X - currentPoint.X);
+                _currentRectangle.Height = Math.Abs(_startPoint.Y - currentPoint.Y);
             }
         }
+
+        
     }
 }
